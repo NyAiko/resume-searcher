@@ -3,4 +3,6 @@ env/
 *.zip
 *.ipynb
 *.pyc
+*.pdf
+.cache/
 requirements.in

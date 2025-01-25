@@ -4,10 +4,20 @@
 #
 #    pip-compile requirements.in
 #
+aiohappyeyeballs==2.4.4
+    # via aiohttp
+aiohttp==3.11.11
+    # via
+    #   langchain
+    #   langchain-community
+aiosignal==1.3.2
+    # via aiohttp
 annotated-types==0.7.0
     # via pydantic
 anyio==4.8.0
     # via httpx
+attrs==24.3.0
+    # via aiohttp
 boto3==1.36.5
     # via -r requirements.in
 botocore==1.36.5
@@ -23,8 +33,24 @@ certifi==2024.12.14
     #   requests
 charset-normalizer==3.4.1
     # via requests
+coloredlogs==15.0.1
+    # via onnxruntime
+dataclasses-json==0.6.7
+    # via langchain-community
+fastembed==0.5.1
+    # via -r requirements.in
+filelock==3.17.0
+    # via huggingface-hub
 filetype==1.2.0
     # via langchain-google-genai
+flatbuffers==25.1.24
+    # via onnxruntime
+frozenlist==1.5.0
+    # via
+    #   aiohttp
+    #   aiosignal
+fsspec==2024.12.0
+    # via huggingface-hub
 google-ai-generativelanguage==0.6.15
     # via google-generativeai
 google-api-core[grpc]==2.24.0
@@ -49,6 +75,8 @@ googleapis-common-protos==1.66.0
     # via
     #   google-api-core
     #   grpcio-status
+greenlet==3.1.1
+    # via sqlalchemy
 grpcio==1.70.0
     # via
     #   google-api-core
@@ -75,6 +103,14 @@ httpx[http2]==0.28.1
     # via
     #   langsmith
     #   qdrant-client
+httpx-sse==0.4.0
+    # via langchain-community
+huggingface-hub==0.27.1
+    # via
+    #   fastembed
+    #   tokenizers
+humanfriendly==10.0
+    # via coloredlogs
 hyperframe==6.1.0
     # via h2
 idna==3.10
@@ -82,6 +118,7 @@ idna==3.10
     #   anyio
     #   httpx
     #   requests
+    #   yarl
 jmespath==1.0.1
     # via
     #   boto3
@@ -90,20 +127,67 @@ jsonpatch==1.33
     # via langchain-core
 jsonpointer==3.0.0
     # via jsonpatch
+langchain==0.3.15
+    # via langchain-community
+langchain-community==0.3.15
+    # via -r requirements.in
 langchain-core==0.3.31
-    # via langchain-google-genai
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-google-genai
+    #   langchain-qdrant
+    #   langchain-text-splitters
 langchain-google-genai==2.0.9
     # via -r requirements.in
+langchain-qdrant==0.2.0
+    # via -r requirements.in
+langchain-text-splitters==0.3.5
+    # via langchain
 langsmith==0.3.1
-    # via langchain-core
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-core
+loguru==0.7.3
+    # via fastembed
+marshmallow==3.26.0
+    # via dataclasses-json
+mmh3==4.1.0
+    # via fastembed
+mpmath==1.3.0
+    # via sympy
+multidict==6.1.0
+    # via
+    #   aiohttp
+    #   yarl
+mypy-extensions==1.0.0
+    # via typing-inspect
 numpy==1.26.4
-    # via qdrant-client
+    # via
+    #   fastembed
+    #   langchain
+    #   langchain-community
+    #   onnxruntime
+    #   qdrant-client
+onnxruntime==1.20.1
+    # via fastembed
 orjson==3.10.15
     # via langsmith
 packaging==24.2
-    # via langchain-core
+    # via
+    #   huggingface-hub
+    #   langchain-core
+    #   marshmallow
+    #   onnxruntime
+pillow==10.4.0
+    # via fastembed
 portalocker==2.10.1
     # via qdrant-client
+propcache==0.2.1
+    # via
+    #   aiohttp
+    #   yarl
 proto-plus==1.25.0
     # via
     #   google-ai-generativelanguage
@@ -116,7 +200,10 @@ protobuf==5.29.3
     #   googleapis-common-protos
     #   grpcio-status
     #   grpcio-tools
+    #   onnxruntime
     #   proto-plus
+py-rust-stemmers==0.1.3
+    # via fastembed
 pyasn1==0.6.1
     # via
     #   pyasn1-modules
@@ -126,25 +213,44 @@ pyasn1-modules==0.4.1
 pydantic==2.10.6
     # via
     #   google-generativeai
+    #   langchain
     #   langchain-core
     #   langchain-google-genai
+    #   langchain-qdrant
     #   langsmith
+    #   pydantic-settings
     #   qdrant-client
 pydantic-core==2.27.2
     # via pydantic
+pydantic-settings==2.7.1
+    # via langchain-community
 pymupdf==1.25.2
     # via -r requirements.in
 pyparsing==3.2.1
     # via httplib2
 python-dateutil==2.9.0.post0
     # via botocore
+python-dotenv==1.0.1
+    # via
+    #   -r requirements.in
+    #   pydantic-settings
 pyyaml==6.0.2
-    # via langchain-core
+    # via
+    #   huggingface-hub
+    #   langchain
+    #   langchain-community
+    #   langchain-core
 qdrant-client==1.13.2
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   langchain-qdrant
 requests==2.32.3
     # via
+    #   fastembed
     #   google-api-core
+    #   huggingface-hub
+    #   langchain
+    #   langchain-community
     #   langsmith
     #   requests-toolbelt
 requests-toolbelt==1.0.0
@@ -157,17 +263,36 @@ six==1.17.0
     # via python-dateutil
 sniffio==1.3.1
     # via anyio
+sqlalchemy==2.0.37
+    # via
+    #   langchain
+    #   langchain-community
+sympy==1.13.3
+    # via onnxruntime
 tenacity==9.0.0
-    # via langchain-core
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-core
+tokenizers==0.21.0
+    # via fastembed
 tqdm==4.67.1
-    # via google-generativeai
+    # via
+    #   fastembed
+    #   google-generativeai
+    #   huggingface-hub
 typing-extensions==4.12.2
     # via
     #   anyio
     #   google-generativeai
+    #   huggingface-hub
     #   langchain-core
     #   pydantic
     #   pydantic-core
+    #   sqlalchemy
+    #   typing-inspect
+typing-inspect==0.9.0
+    # via dataclasses-json
 uritemplate==4.1.1
     # via google-api-python-client
 urllib3==2.3.0
@@ -175,6 +300,8 @@ urllib3==2.3.0
     #   botocore
     #   qdrant-client
     #   requests
+yarl==1.18.3
+    # via aiohttp
 zstandard==0.23.0
     # via langsmith
 

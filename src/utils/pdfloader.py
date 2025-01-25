@@ -1,11 +1,16 @@
-import pymupdf
+from langchain_community.document_loaders import PyMuPDFLoader, UnstructuredWordDocumentLoader
 
-def extractText(filepath:str):
-  pdf = pymupdf.open(filepath)
-  extracted_text= ""
-  for page in pdf.pages():
-    text = page.get_text()
-    text = text.strip()
-    text = text.replace("\n", " ")
-    extracted_text += "\n" + text
-  return text
+mapping = {
+    "pdf": PyMuPDFLoader,
+    "docx": UnstructuredWordDocumentLoader
+}
+
+def loadDocument(filepath: str):
+    file_extension = filepath.split('.')[-1].lower()
+    if file_extension in mapping:
+        LoaderClass = mapping[file_extension]
+        loader = LoaderClass(filepath)
+        docs = loader.load()
+        return docs
+    else:
+        raise ValueError(f"Unsupported file type: {file_extension}")
