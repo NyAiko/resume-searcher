@@ -11,3 +11,5 @@ python/
 requirements.in
 Makefile
 aws/
+*.terraform
+*.tf
