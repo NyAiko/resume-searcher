@@ -1,26 +1,24 @@
-create_lambda_layer:
-	@echo "Creating the layer ..."
-	./aws/1-install.sh
-	./aws/2-package.sh
-	rm -rf create_layer/
-	rm -rf python/
+install_layer:
+	./aws/1-install.sh;
 
-publish_lambda_layer:
-	@echo "Publishing the layer ..."
-	LAYER_ARN=$$(aws lambda publish-layer-version \
+package_layer:
+	./aws/2-package.sh;
+	
+publish_layer:
+	echo "Publishing the layer ..."
+	LAYER_ARN=$(aws lambda publish-layer-version \
 		--layer-name "google-genai-langchain-qdrant" \
 		--description "Layer having Google GenAI, Langchain and Qdrant installed, optimized for Lambda functions" \
 		--zip-file "fileb://my_layer.zip" \
 		--compatible-runtimes python3.11 \
-		--query "LayerVersionArn" --output text); \
-	echo "Layer ARN: $$LAYER_ARN"
-	rm -f my_layer.zip
-
-update_lambda_function:
-	@echo "Packaging the Lambda functions..."
+		--query "LayerVersionArn" --output text);
+	echo "Layer ARN: $(LAYER_ARN)"
+	
+update_function:
+	echo "Packaging the Lambda functions..."
 	zip -r my_function.zip src/ processResume.py searchResume.py .cache/
 
-	@echo "Updating the Lambda functions..."
+	echo "Updating the Lambda functions..."
 	LAYER_ARN=$$(aws lambda list-layer-versions \
 		--layer-name "google-genai-langchain-qdrant" \
 		--query "LayerVersions[0].LayerVersionArn" \

@@ -1,4 +1,6 @@
 env/
+create_layer/
+python/
 .env
 *.zip
 *.ipynb
@@ -6,3 +8,5 @@ env/
 *.pdf
 .cache/
 requirements.in
+Makefile
+aws/

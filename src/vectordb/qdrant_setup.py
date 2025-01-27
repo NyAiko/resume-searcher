@@ -16,7 +16,7 @@ client = QdrantClient(url = os.getenv("QDRANT_URL"),
                       api_key = os.getenv("QDRANT_API_KEY")
                       )
 
-sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
+sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25",cache_dir=os.getenv("FASTEMBED_CACHE"))
 dense_embeddings = GoogleGenerativeAIEmbeddings(google_api_key=os.getenv("GOOGLE_API_KEY"),model= "models/text-embedding-004"
                                                 )
 
