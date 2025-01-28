@@ -1,0 +1,15 @@
+env/
+.terraform/
+create_layer/
+python/
+.env
+*.zip
+*.ipynb
+*.pyc
+*.pdf
+.cache/
+requirements.in
+Makefile
+aws/
+*.terraform
+*.tf

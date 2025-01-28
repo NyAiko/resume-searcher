@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  searchResume:
+    build:
+      context: .
+      dockerfile: Dockerfile.searchResume
+    ports:
+      - "9001:8080"  # Map to a local port to test locally
+    environment:
+      - AWS_LAMBDA_FUNCTION_NAME=searchResume
+    volumes:
+      - ./src:/var/task  # Mount the src folder
+    image: resume-searcher-searchresume:latest
+    platform: linux/amd64
+
+  processResume:
+    build:
+      context: .
+      dockerfile: Dockerfile.processResume
+    ports:
+      - "9002:8080"  # Map to a different local port
+    environment:
+      - AWS_LAMBDA_FUNCTION_NAME=processResume
+    volumes:
+      - ./src:/var/task  # Mount the src folder
+    image: resume-searcher-processresume:latest
+    platform: linux/amd64
